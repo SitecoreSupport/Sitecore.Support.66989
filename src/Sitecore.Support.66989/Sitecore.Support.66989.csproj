@@ -48,8 +48,8 @@
       <HintPath>..\packages\WFFM.Sitecore.Forms.Core.8.0.3\lib\Sitecore.Forms.Core.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="Sitecore.WFFM.Abstractions">
-      <HintPath>..\packages\WFFM.Sitecore.WFFM.Abstractions.8.0.3\lib\Sitecore.WFFM.Abstractions.dll</HintPath>
+    <Reference Include="Sitecore.WFFM, Version=8.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\WFFM.Sitecore.WFFM.8.0.3\lib\Sitecore.WFFM.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="System" />
@@ -84,7 +84,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>0</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:62735/</IISUrl>
+          <IISUrl>http://localhost:58680/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>
