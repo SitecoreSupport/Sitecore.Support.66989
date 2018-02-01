@@ -21,7 +21,8 @@ namespace Sitecore.Support.Forms.Core.Commands
         {
             Assert.ArgumentNotNull(args.Parameters["id"], "id");
             Assert.ArgumentNotNull(args.Parameters["db"], "db");
-            ItemUri uri = new ItemUri(ID.Parse(args.Parameters["id"]), Language.Current, Sitecore.Data.Version.Latest, args.Parameters["db"]);
+            #region Patch66989
+            ItemUri uri = new ItemUri(ID.Parse(args.Parameters["id"]), Language.Parse(args.Parameters["la"]), Sitecore.Data.Version.Latest, args.Parameters["db"]);
             Item item = Database.GetItem(uri);
             if (SheerResponse.CheckModified() && item != null)
             {
@@ -49,8 +50,18 @@ namespace Sitecore.Support.Forms.Core.Commands
                 string text = ID.NewID.ToString();
                 UrlString urlString2 = new UrlString(UIUtil.GetUri("control:SubmitCommands.Editor"));
                 FormItem formItem = new FormItem(item);
-                ListDefinition value = ListDefinition.Parse((args.Parameters["mode"] == "save") ? formItem.SaveActions : formItem.CheckActions);
-                System.Web.HttpContext.Current.Session.Add(text, value);
+                ListDefinition listDefinition2 = ListDefinition.Parse((args.Parameters["mode"] == "save") ? formItem.SaveActions : formItem.CheckActions);
+                if (listDefinition2.Groups.Count == 0)
+                {
+                    GroupDefinition item2 = new GroupDefinition
+                    {
+                        DisplayName = ResourceManager.Localize("SAVE_ACTIONS"),
+                        ID = FormIDs.SaveActionsRootID.ToString()
+                    };
+                    listDefinition2.Groups.Add(item2);
+                }
+                HttpContext.Current.Session.Add(text, listDefinition2);
+                #endregion
                 urlString2.Append("definition", text);
                 urlString2.Add("id", args.Parameters["id"]);
                 urlString2.Add("db", args.Parameters["db"]);
